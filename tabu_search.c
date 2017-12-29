@@ -52,6 +52,14 @@ int cost_board(int *board, int *queen_loc_row, int *queen_loc_col, int r, int c,
 		{
 			*(domination_board + *(queen_loc_row + i)*c + j) = 2;
 		}
+
+		for(k = 0; k < r; k++)
+		{
+			*(domination_board + k*c + *(queen_loc_col + i)) = 2;
+		}
+
+		j = *(queen_loc_row + i);
+		k = *(queen_loc_col + i);
 	}
 
 	print_board(domination_board, r, c);
