@@ -10,8 +10,9 @@
 int *new_one_dim_arr(int);
 int *new_two_dim_arr(int, int);
 
+int cost_board(int *, int *, int *, int, int, int);
 void generate_queens(int *, int *, int *, int, int, int);
-print_board(int *, int, int);
+void print_board(int *, int, int);
 
 int *new_one_dim_arr(int x)
 {
@@ -37,6 +38,23 @@ int *new_two_dim_arr(int x, int y)
 	}
 
 	return arr;
+}
+
+int cost_board(int *board, int *queen_loc_row, int *queen_loc_col, int r, int c, int n_queens)
+{
+	int *domination_board = new_two_dim_arr(r, c);
+	int highest_cost = r * c;
+	int i, j, k, total_cost = 0;
+
+	for(i = 0; i < n_queens; i++)
+	{
+		for(j = 0; j < c; j++)
+		{
+			*(domination_board + *(queen_loc_row + i)*c + j) = 2;
+		}
+	}
+
+	print_board(domination_board, r, c);
 }
 
 void generate_queens(int *board, int *queen_loc_row, int *queen_loc_col, int r, int c, int n_queens)
@@ -103,6 +121,8 @@ int main(int argc, char *argv[])
 	int *initial_queen_loc_col = new_one_dim_arr(n_queens);
 
 	generate_queens(initial_board, initial_queen_loc_row, initial_queen_loc_col, r, c, n_queens);
+	cost_board(initial_board, initial_queen_loc_row, initial_queen_loc_col, r, c, n_queens);
+	printf("\n");
 	print_board(initial_board, r, c);
 /*
 	int *d = new_one_dim_arr(5);
@@ -139,4 +159,6 @@ int main(int argc, char *argv[])
 		printf("%i\n", *(d + i));
 	}
 */
+
+	return 0;
 }
