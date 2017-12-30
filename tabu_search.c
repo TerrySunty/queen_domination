@@ -70,6 +70,16 @@ int cost_board(int *board, int *queen_loc_row, int *queen_loc_col, int r, int c,
 
 		j = *(queen_loc_row + i);
 		k = *(queen_loc_col + i);
+
+		while(j < r && k < c)
+		{
+			*(domination_board + j*c + k) = 2;
+			j++;
+			k++;
+		}
+
+		j = *(queen_loc_row + i);
+		k = *(queen_loc_col + i);
 	}
 
 	print_board(domination_board, r, c);
