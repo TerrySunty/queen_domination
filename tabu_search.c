@@ -99,7 +99,22 @@ int cost_board(int *board, int *queen_loc_row, int *queen_loc_col, int r, int c,
 		}
 	}
 
+	for(i = 0; i < r; i++)
+	{
+		for(j = 0; j < c; j++)
+		{
+			if(2 == *(domination_board + i*c + j))
+			{
+				total_cost++;
+			}
+		}
+	}
+
 	print_board(domination_board, r, c);
+
+	free(domination_board);
+
+	return total_cost;
 }
 
 void generate_queens(int *board, int *queen_loc_row, int *queen_loc_col, int r, int c, int n_queens)
@@ -160,14 +175,16 @@ int main(int argc, char *argv[])
 	int r = atoi(argv[1]);
 	int c = atoi(argv[2]);
 	int n_queens = atoi(argv[3]);
+	int cost = 0;
 
 	int *initial_board = new_two_dim_arr(r, c);
 	int *initial_queen_loc_row = new_one_dim_arr(n_queens);
 	int *initial_queen_loc_col = new_one_dim_arr(n_queens);
 
 	generate_queens(initial_board, initial_queen_loc_row, initial_queen_loc_col, r, c, n_queens);
-	cost_board(initial_board, initial_queen_loc_row, initial_queen_loc_col, r, c, n_queens);
+	cost = cost_board(initial_board, initial_queen_loc_row, initial_queen_loc_col, r, c, n_queens);
 	printf("\n");
+	printf("total cost: %i\n", cost);
 	print_board(initial_board, r, c);
 /*
 	int *d = new_one_dim_arr(5);
